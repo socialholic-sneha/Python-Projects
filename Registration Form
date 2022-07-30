@@ -1,0 +1,115 @@
+from tkinter import*
+from tkinter import messagebox
+
+#Submittion Window
+def openwindow():
+    top = Toplevel(window)
+    top.geometry("500x500")
+    top.title("new window")
+    top.resizable(False,False)
+    label = Label(top, text = " Form Submitted successfully!",font=('Ariel',15,'bold'))
+    label.pack()
+
+window=Tk()
+
+window.title("Summer Camp Form")
+window.geometry('1100x1100')
+window.configure(bg = 'white')
+window.resizable(False,False)
+
+#Adding Image
+img = PhotoImage(file ="C:\\Users\\Dell\\Downloads\\summer.png")
+
+Label(window,image = img,border = 0,bg= 'white').place(x = 30,y= 90)
+frame = Frame(window,width = 400,height = 150, bg='white')
+frame.place(x = 480,y = 50)
+
+#Value
+nameValue = StringVar()
+ageValue = StringVar()
+emailValue = StringVar()
+phoneValue = StringVar()
+addValue = StringVar()
+stValue = StringVar()
+PValue = StringVar()
+DValue = StringVar()
+
+#Labels
+heading = Label(frame,text = 'Summer Camp Form',fg = '#57a2f8',bg = 'white', font=('Ariel',30,'bold'))
+heading.place(x = 0,y = 0)
+Label(text = "Full Name",font = 15).place(x= 100,y = 300)
+Label(text = "Age",font = 15).place(x= 100,y = 350)
+Label(text = "Email id ",font = 15).place(x=100, y = 400)
+Label(text = "Phone Number",font = 15).place(x= 100, y = 450)
+Label(text = "Address",font = 15).place(x= 100, y = 500)
+Label(text="State",font = 15).place(x = 100,y = 550)
+list1 = ['Andhra pradesh','Bihar','Goa','Gujarat','Haryana','Jharkhand','Kerela','Maharashtra','Nagaland','Punjab','Rajasthan','Uttar Pradesh']
+droplist = OptionMenu(window,stValue,*list1)
+droplist.config(width = 15)
+stValue.set('Select Your State')
+droplist.place(x=700,y = 550)
+Label(text="Proof Of Identity",font = 15).place(x = 100,y = 600)
+Label(text="Does the applicant have any kind of disease? If yes, then please describe.",font = 12).place(x = 100,y = 675)
+
+
+#Entries
+nameEntry = Entry(window,textvariable = nameValue, width = 30,bd =2, font = 20)
+ageEntry = Entry(window,textvariable = ageValue, width = 30,bd =2, font = 20)
+emailEntry = Entry(window,textvariable = emailValue, width = 30,bd =2, font = 20)
+phoneEntry = Entry(window,textvariable = phoneValue, width = 30,bd =2, font = 20)
+addEntry = Entry(window,textvariable = addValue, width = 30,bd =2, font = 20)
+stEntry = Entry(window,textvariable = stValue, width = 30,bd =2, font = 20)
+PEntry = Entry(window,textvariable = PValue, width = 30,bd =2, font = 20)
+DEntry = Entry(window,textvariable = DValue, width = 50,bd =2, font = 20)
+
+#Placing Entries
+nameEntry.place(x = 350,y = 300)
+ageEntry.place(x = 350,y = 350)
+emailEntry.place(x = 350,y = 400)
+phoneEntry.place(x = 350,y = 450)
+addEntry.place(x = 350,y = 500)
+stEntry.place(x = 350,y = 550)
+PEntry.place(x = 350,y = 600)
+DEntry.place(x = 100,y = 720)
+
+#Buttons
+checkValue=IntVar
+checkbutton1 = Radiobutton(window,text = "Aadhar Card",value =1,variable = PEntry)
+checkbutton1.place(x = 350, y = 630)
+checkbutton3 = Radiobutton(window,text = "Pan card",value = 2,variable = PEntry)
+checkbutton3.place(x = 450, y = 630)
+checkbutton4 = Radiobutton(window,text = "Passport Number",value =3,variable = PEntry)
+checkbutton4.place(x = 550, y = 630)
+
+checkbutton2 = Checkbutton(text = "I acknowledge that all the above information given above is correct and in case of any injury the authority is not responsible for it.",variable = checkValue)
+checkbutton2.place(x = 100, y = 760)
+
+
+#Alert Box
+def  validation():
+    if nameEntry.get()=="":
+       messagebox.showinfo("Alert","Name missing!")
+    elif ageEntry.get()=="":
+        messagebox.showinfo("Alert","Age missing!")
+    elif emailEntry.get()=="":
+        messagebox.showinfo("Alert","Email missing!")
+    elif phoneEntry.get()=="":
+        messagebox.showinfo("Alert","Phone Number missing!")
+    elif addEntry.get()=="":
+        messagebox.showinfo("Alert","Address missing!")
+    elif stValue.get()=="" or stValue.get()== "Select your state":
+        messagebox.showinfo("Alert","Select your state!")
+    elif PEntry.get()=="":
+        messagebox.showinfo("Alert","Select Proof of Identity First!")
+    elif DEntry.get()=="":
+        messagebox.showinfo("Alert","Declaration missing")
+    elif checkbutton2==0:
+        messagebox.showinfo("Alert","Acknowledgement missing!")
+   
+        
+#Submit Button    
+Button(text = "Submit",font= 20,width = 11,height = 2,command = lambda: [validation(),openwindow()]).place(x=850,y =720)
+
+
+
+window.mainloop()
